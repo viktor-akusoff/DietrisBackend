@@ -10,7 +10,7 @@ class FoodItem(models.Model):
     calories_per_100g = models.PositiveIntegerField(_("Calories/100g"), default=0)
     protein_per_100g = models.PositiveIntegerField(_("Protein/100g"), default=0)
     carb_per_100g = models.PositiveIntegerField(_("Carb/100g"), default=0)
-    fats_per_100g = models.PositiveBigIntegerField(_("Fats/100g"), default=0)
+    fats_per_100g = models.PositiveIntegerField(_("Fats/100g"), default=0)
 
     class Meta:
         verbose_name = _("Food Item")
