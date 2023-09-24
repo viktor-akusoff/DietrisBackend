@@ -2,11 +2,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
+
 class FoodItem(models.Model):
-    
+
     name = models.CharField(_("Name"), max_length=255, null=False, blank=False)
     slug = models.SlugField(_("Slug"), unique=True, null=False, blank=False)
-    
+
     calories_per_100g = models.PositiveIntegerField(_("Calories/100g"), default=0)
     protein_per_100g = models.PositiveIntegerField(_("Protein/100g"), default=0)
     carb_per_100g = models.PositiveIntegerField(_("Carb/100g"), default=0)
@@ -21,4 +22,3 @@ class FoodItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("FoodItem_detail", kwargs={"slug": self.slug})
-
