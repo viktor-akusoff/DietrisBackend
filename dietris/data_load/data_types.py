@@ -8,7 +8,7 @@ class FoodElement():
     protein: float
     fats: float
     carb: float
-    callories: float
+    calories: float
 
 
 NutritionTable = List[FoodElement]
