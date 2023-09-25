@@ -23,7 +23,7 @@ class Strategy(ABC):
         pass
 
 
-class XLRDStrategy(Strategy):
+class XLSStrategy(Strategy):
 
     def load(self, file_address: str) -> None:
         book = xlrd.open_workbook(file_address)
@@ -38,7 +38,7 @@ class XLRDStrategy(Strategy):
             self.table.append(FoodElement(name, protein, fats, carb, calories))
 
 
-class LightXLStrategy(Strategy):
+class XLSXStrategy(Strategy):
 
     def load(self, file_address: str) -> None:
         book = xl.readxl(fn=file_address)
@@ -54,7 +54,7 @@ class LightXLStrategy(Strategy):
             self.table.append(FoodElement(name, protein, fats, carb, calories))
 
 
-class XLSBStrategy(Strategy):
+class CSVStrategy(Strategy):
 
     def load(self, file_address: str) -> None:
         pass
