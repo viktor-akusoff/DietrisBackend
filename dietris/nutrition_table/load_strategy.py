@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any
+import csv
 import xlrd  # type: ignore
 import pylightxl as xl
 from data_types import FoodElement, NutritionTable
@@ -57,4 +58,12 @@ class XLSXStrategy(Strategy):
 class CSVStrategy(Strategy):
 
     def load(self, file_address: str) -> None:
-        pass
+        with open(file_address, encoding='utf-8') as book:
+            reader = csv.reader(book, delimiter=';')
+            for row in reader:
+                name = str(row[0])
+                protein = get_float(row[1].replace(',', '.'))
+                fats = get_float(row[2].replace(',', '.'))
+                carb = get_float(row[3].replace(',', '.'))
+                calories = get_float(row[4].replace(',', '.'))
+                self.table.append(FoodElement(name, protein, fats, carb, calories))
