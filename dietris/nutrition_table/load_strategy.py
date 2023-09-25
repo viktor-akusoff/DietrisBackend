@@ -67,3 +67,9 @@ class CSVStrategy(Strategy):
                 carb = get_float(row[3].replace(',', '.'))
                 calories = get_float(row[4].replace(',', '.'))
                 self.table.append(FoodElement(name, protein, fats, carb, calories))
+
+
+class ODSStrategy(Strategy):
+
+    def loas(self, file_address: str) -> None:
+        pass
