@@ -1,0 +1,66 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Choose file</h1>
+<hr>
+<p style="margin-top:20px">
+    You can upload all nutrition data from xls, xlsx, csv and ods files.
+    The table in those files should look like this:
+</p>
+<table style="margin-top: 20px; margin-bottom:20px">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Protein per 100g</th>
+            <th>Fats per 100g</th>
+            <th>Carb per 100g</th>
+            <th>Calories per 100g</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Product 1</td>
+            <td>10</td>
+            <td>13</td>
+            <td>60</td>
+            <td>120</td>
+        </tr>
+        <tr>
+            <td>Product 2</td>
+            <td>10</td>
+            <td>13</td>
+            <td>60</td>
+            <td>120</td>
+        </tr>
+        <tr>
+            <td>Product 3</td>
+            <td>10</td>
+            <td>13</td>
+            <td>60</td>
+            <td>120</td>
+        </tr>
+        <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>Product N</td>
+            <td>10</td>
+            <td>13</td>
+            <td>60</td>
+            <td>120</td>
+        </tr>
+    </tbody>
+</table>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <input type="file" id="avatar" name="avatar" accept=".xls, .xlsx, .csv, .ods" />
+    </div>
+    <div style="margin-top: 20px">
+        <input type="submit" />
+    </div>
+</form>
+{% endblock %}
