@@ -18,7 +18,7 @@ def get_float(value: Any) -> float:
 
 class Strategy(ABC):
 
-    table: NutritionTable = []
+    _table: NutritionTable = []
 
     @abstractmethod
     def load(self, file_address: str) -> NutritionTable:
@@ -37,8 +37,8 @@ class XLSStrategy(Strategy):
             fats = get_float(row[2])
             carb = get_float(row[3])
             calories = get_float(row[4])
-            self.table.append(FoodElement(name, protein, fats, carb, calories))
-        return self.table
+            self._table.append(FoodElement(name, protein, fats, carb, calories))
+        return self._table
 
 
 class XLSXStrategy(Strategy):
@@ -54,8 +54,8 @@ class XLSXStrategy(Strategy):
             fats = get_float(row[2])
             carb = get_float(row[3])
             calories = get_float(row[4])
-            self.table.append(FoodElement(name, protein, fats, carb, calories))
-        return self.table
+            self._table.append(FoodElement(name, protein, fats, carb, calories))
+        return self._table
 
 
 class CSVStrategy(Strategy):
@@ -69,8 +69,8 @@ class CSVStrategy(Strategy):
                 fats = get_float(row[2].replace(',', '.'))
                 carb = get_float(row[3].replace(',', '.'))
                 calories = get_float(row[4].replace(',', '.'))
-                self.table.append(FoodElement(name, protein, fats, carb, calories))
-        return self.table
+                self._table.append(FoodElement(name, protein, fats, carb, calories))
+        return self._table
 
 
 class ODSStrategy(Strategy):
@@ -86,5 +86,5 @@ class ODSStrategy(Strategy):
             fats = get_float(row[2])
             carb = get_float(row[3])
             calories = get_float(row[4])
-            self.table.append(FoodElement(name, protein, fats, carb, calories))
-        return self.table
+            self._table.append(FoodElement(name, protein, fats, carb, calories))
+        return self._table
