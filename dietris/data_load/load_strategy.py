@@ -1,9 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Union
 import xlrd  # type: ignore
-
-NutritionData = Dict[str, Union[str, int]]
-NutritionTable = List[NutritionData]
+from data_types import FoodElement, NutritionTable
 
 
 class Strategy(ABC):
@@ -21,15 +18,8 @@ class XLRDStrategy(Strategy):
         book = xlrd.open_workbook(file_address)
         first_sheet = book.sheet_by_index(0)
         for i in range(1, first_sheet.nrows):
-            self.table.append(
-                {
-                    'name': first_sheet.cell_value(rowx=i, colx=0),
-                    'protein': first_sheet.cell_value(rowx=i, colx=1),
-                    'fats': first_sheet.cell_value(rowx=i, colx=2),
-                    'carb': first_sheet.cell_value(rowx=i, colx=3),
-                    'callories': first_sheet.cell_value(rowx=i, colx=4)
-                }
-            )
+            row = first_sheet.row(i)
+            self.table.append(FoodElement(row[0], row[1], row[2], row[3], row[4]))
 
 
 class LightXLStrategy(Strategy):
