@@ -1,6 +1,17 @@
 from abc import ABC, abstractmethod
+from typing import Any
 import xlrd  # type: ignore
+import pylightxl as xl
 from data_types import FoodElement, NutritionTable
+
+
+def get_float(value: Any) -> float:
+    result = 0
+    try:
+        result = float(value)
+    except ValueError:
+        pass
+    return result
 
 
 class Strategy(ABC):
@@ -19,13 +30,28 @@ class XLRDStrategy(Strategy):
         first_sheet = book.sheet_by_index(0)
         for i in range(1, first_sheet.nrows):
             row = first_sheet.row(i)
-            self.table.append(FoodElement(row[0], row[1], row[2], row[3], row[4]))
+            name = str(row[0])
+            protein = get_float(row[1])
+            fats = get_float(row[2])
+            carb = get_float(row[3])
+            calories = get_float(row[4])
+            self.table.append(FoodElement(name, protein, fats, carb, calories))
 
 
 class LightXLStrategy(Strategy):
 
     def load(self, file_address: str) -> None:
-        pass
+        book = xl.readxl(fn=file_address)
+        sheet_name = book.ws_names[0]
+        first_sheet = book.ws(ws=sheet_name)
+        first_sheet_rows = list(first_sheet.rows)[1:]
+        for row in first_sheet_rows:
+            name = str(row[0])
+            protein = get_float(row[1])
+            fats = get_float(row[2])
+            carb = get_float(row[3])
+            calories = get_float(row[4])
+            self.table.append(FoodElement(name, protein, fats, carb, calories))
 
 
 class XLSBStrategy(Strategy):
