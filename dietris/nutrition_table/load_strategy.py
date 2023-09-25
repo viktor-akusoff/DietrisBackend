@@ -21,13 +21,13 @@ class Strategy(ABC):
     table: NutritionTable = []
 
     @abstractmethod
-    def load(self, file_address: str) -> None:
+    def load(self, file_address: str) -> NutritionTable:
         pass
 
 
 class XLSStrategy(Strategy):
 
-    def load(self, file_address: str) -> None:
+    def load(self, file_address: str) -> NutritionTable:
         book = xlrd.open_workbook(file_address)
         first_sheet = book.sheet_by_index(0)
         for i in range(1, first_sheet.nrows):
@@ -38,11 +38,12 @@ class XLSStrategy(Strategy):
             carb = get_float(row[3])
             calories = get_float(row[4])
             self.table.append(FoodElement(name, protein, fats, carb, calories))
+        return self.table
 
 
 class XLSXStrategy(Strategy):
 
-    def load(self, file_address: str) -> None:
+    def load(self, file_address: str) -> NutritionTable:
         book = xl.readxl(fn=file_address)
         sheet_name = book.ws_names[0]
         first_sheet = book.ws(ws=sheet_name)
@@ -54,11 +55,12 @@ class XLSXStrategy(Strategy):
             carb = get_float(row[3])
             calories = get_float(row[4])
             self.table.append(FoodElement(name, protein, fats, carb, calories))
+        return self.table
 
 
 class CSVStrategy(Strategy):
 
-    def load(self, file_address: str) -> None:
+    def load(self, file_address: str) -> NutritionTable:
         with open(file_address, encoding='utf-8') as book:
             reader = csv.reader(book, delimiter=';')
             for row in reader:
@@ -68,11 +70,12 @@ class CSVStrategy(Strategy):
                 carb = get_float(row[3].replace(',', '.'))
                 calories = get_float(row[4].replace(',', '.'))
                 self.table.append(FoodElement(name, protein, fats, carb, calories))
+        return self.table
 
 
 class ODSStrategy(Strategy):
 
-    def load(self, file_address: str) -> None:
+    def load(self, file_address: str) -> NutritionTable:
         book_dict = read_data(file_address)
         book = book_dict.popitem()[1][1:]
         for row in book:
@@ -84,3 +87,4 @@ class ODSStrategy(Strategy):
             carb = get_float(row[3])
             calories = get_float(row[4])
             self.table.append(FoodElement(name, protein, fats, carb, calories))
+        return self.table
