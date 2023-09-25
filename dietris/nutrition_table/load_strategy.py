@@ -3,6 +3,7 @@ from typing import Any
 import csv
 import xlrd  # type: ignore
 import pylightxl as xl
+from pyexcel_ods import read_data
 from data_types import FoodElement, NutritionTable
 
 
@@ -71,5 +72,15 @@ class CSVStrategy(Strategy):
 
 class ODSStrategy(Strategy):
 
-    def loas(self, file_address: str) -> None:
-        pass
+    def load(self, file_address: str) -> None:
+        book_dict = read_data(file_address)
+        book = book_dict.popitem()[1][1:]
+        for row in book:
+            if not row:
+                continue
+            name = str(row[0])
+            protein = get_float(row[1])
+            fats = get_float(row[2])
+            carb = get_float(row[3])
+            calories = get_float(row[4])
+            self.table.append(FoodElement(name, protein, fats, carb, calories))
