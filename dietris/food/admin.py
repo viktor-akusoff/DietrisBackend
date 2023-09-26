@@ -5,6 +5,7 @@ from django.template.response import TemplateResponse
 from django.urls import path
 from django.urls.resolvers import URLPattern
 from django.contrib import messages
+from nutrition_table.load_exceptions import NutritionTableLoadError
 from nutrition_table.load_context import NutritionTableContext
 from nutrition_table.load_strategy import CSVStrategy, ODSStrategy, XLSStrategy, XLSXStrategy
 from .models import FoodItem
@@ -53,7 +54,7 @@ class FoodItemAdmin(admin.ModelAdmin):
 
         try:
             context.load_table(table_address)
-        except (UnicodeDecodeError):
+        except NutritionTableLoadError:
             self.message_user(request, "Wrong file content", level=messages.ERROR)
             return HttpResponseRedirect("../")
 
