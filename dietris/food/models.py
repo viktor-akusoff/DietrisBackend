@@ -8,10 +8,10 @@ class FoodItem(models.Model):
     name = models.CharField(_("Name"), max_length=255, null=False, blank=False)
     slug = models.SlugField(_("Slug"), unique=True, null=False, blank=False)
 
-    calories_per_100g = models.PositiveIntegerField(_("Calories/100g"), default=0)
-    protein_per_100g = models.PositiveIntegerField(_("Protein/100g"), default=0)
-    carb_per_100g = models.PositiveIntegerField(_("Carb/100g"), default=0)
-    fats_per_100g = models.PositiveIntegerField(_("Fats/100g"), default=0)
+    calories_per_100g = models.FloatField(_("Calories/100g"), default=0)
+    protein_per_100g = models.FloatField(_("Protein/100g"), default=0)
+    carb_per_100g = models.FloatField(_("Carb/100g"), default=0)
+    fats_per_100g = models.FloatField(_("Fats/100g"), default=0)
 
     class Meta:
         verbose_name = _("Food Item")
