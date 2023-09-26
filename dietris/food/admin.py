@@ -1,3 +1,4 @@
+import os
 from django.contrib import admin
 from django.core.files.storage import default_storage
 from django.http import HttpResponseRedirect
@@ -59,6 +60,8 @@ class FoodItemAdmin(admin.ModelAdmin):
             return HttpResponseRedirect("../")
 
         context.load_table_to_db()
+
+        os.remove(table_address)
 
         self.message_user(request, "Nuttrition data was succesfully uploaded!")
         return HttpResponseRedirect("../")
