@@ -14,6 +14,9 @@ from .models import FoodItem
 
 @admin.register(FoodItem)
 class FoodItemAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'protein_per_100g', 'carb_per_100g', 'fats_per_100g', 'calories_per_100g')
+
     change_list_template = "admin/model_change_list.html"
 
     def get_urls(self) -> list[URLPattern]:
