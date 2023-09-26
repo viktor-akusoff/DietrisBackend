@@ -5,7 +5,7 @@ import xlrd  # type: ignore
 import pylightxl as xl
 from pyexcel_ods import read_data
 
-from dietris.nutrition_table.load_exceptions import NutritionTableLoadError
+from .load_exceptions import NutritionTableLoadError
 from .data_types import FoodElement, NutritionTable
 
 
