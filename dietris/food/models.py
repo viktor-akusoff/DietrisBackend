@@ -18,7 +18,8 @@ class FoodItem(models.Model):
         verbose_name_plural = _("Food Items")
 
     def __str__(self):
-        return self.name
+        return f"{self.name}, {self.slug} - prt: {self.protein_per_100g}, \
+fts: {self.fats_per_100g}, crb: {self.carb_per_100g}, clr: {self.calories_per_100g}"
 
     def get_absolute_url(self):
         return reverse("FoodItem_detail", kwargs={"slug": self.slug})

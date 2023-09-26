@@ -58,7 +58,7 @@ class FoodItemAdmin(admin.ModelAdmin):
             self.message_user(request, "Wrong file content", level=messages.ERROR)
             return HttpResponseRedirect("../")
 
-        print(context._table)
+        context.load_table_to_db()
 
         self.message_user(request, "Nuttrition data was succesfully uploaded!")
         return HttpResponseRedirect("../")
