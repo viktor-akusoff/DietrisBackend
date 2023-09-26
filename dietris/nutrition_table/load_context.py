@@ -1,3 +1,4 @@
+from itertools import islice
 from transliterate import slugify
 from food.models import FoodItem
 from .data_types import NutritionTable
@@ -30,8 +31,9 @@ class NutritionTableContext():
         self._table = self._strategy.load(file_address)
 
     def load_table_to_db(self):
+        batch_size = 100
         cr = set(FoodItem.objects.all().values_list('slug', flat=True))
-        batch = [
+        data_to_upload = (
             FoodItem(
                 name=element.name,
                 slug=slugify(element.name),
@@ -40,5 +42,9 @@ class NutritionTableContext():
                 carb_per_100g=element.carb,
                 calories_per_100g=element.calories
             ) for element in self._table if not check_repeat(cr, slugify(element.name))
-        ]
-        FoodItem.objects.bulk_create(batch)
+        )
+        while True:
+            batch = list(islice(data_to_upload, batch_size))
+            if not batch:
+                break
+            FoodItem.objects.bulk_create(batch, batch_size)
