@@ -1,6 +1,6 @@
 {% extends 'admin/change_list.html' %}
 {% block object-tools %}
-  <form action="import-table-dialogue/" method="POST">
+  <form action="import-dialogue/" method="GET">
     {% csrf_token %}
     <input type="submit" value="Import from file" />
   </form>

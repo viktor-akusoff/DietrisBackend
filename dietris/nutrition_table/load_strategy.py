@@ -4,7 +4,7 @@ import csv
 import xlrd  # type: ignore
 import pylightxl as xl
 from pyexcel_ods import read_data
-from data_types import FoodElement, NutritionTable
+from .data_types import FoodElement, NutritionTable
 
 
 def get_float(value: Any) -> float:
@@ -32,11 +32,11 @@ class XLSStrategy(Strategy):
         first_sheet = book.sheet_by_index(0)
         for i in range(1, first_sheet.nrows):
             row = first_sheet.row(i)
-            name = str(row[0])
-            protein = get_float(row[1])
-            fats = get_float(row[2])
-            carb = get_float(row[3])
-            calories = get_float(row[4])
+            name = str(row[0].value)
+            protein = get_float(row[1].value)
+            fats = get_float(row[2].value)
+            carb = get_float(row[3].value)
+            calories = get_float(row[4].value)
             self._table.append(FoodElement(name, protein, fats, carb, calories))
         return self._table
 

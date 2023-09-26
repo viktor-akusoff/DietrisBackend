@@ -1,5 +1,5 @@
-from data_types import NutritionTable
-from load_strategy import Strategy
+from .data_types import NutritionTable
+from .load_strategy import Strategy
 
 
 class NutritionTableContext():

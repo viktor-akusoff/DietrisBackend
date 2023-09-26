@@ -54,10 +54,10 @@
         </tr>
     </tbody>
 </table>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action='../import-table/'>
     {% csrf_token %}
     <div>
-        <input type="file" id="avatar" name="avatar" accept=".xls, .xlsx, .csv, .ods" />
+        <input type="file" id="table" name="table" accept=".xls, .xlsx, .csv, .ods" />
     </div>
     <div style="margin-top: 20px">
         <input type="submit" />
